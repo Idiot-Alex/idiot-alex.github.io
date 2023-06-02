@@ -1,6 +1,6 @@
-**[antfu.me](https://antfu.me)**
+**[Hotstrip](https://idiot-alex.github.io/)**
 
-my personal website powered by [Vite](https://vitejs.dev/)
+my personal website powered by [antfu.me](https://antfu.me/)，
 
 <br>
 
