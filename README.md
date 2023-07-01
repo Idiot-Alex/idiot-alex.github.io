@@ -1,7 +1,6 @@
 **[Hotstrip](https://idiot-alex.github.io/)**
 
-my personal website powered by [antfu.me](https://antfu.me/)，
+my personal website powered by [hugo](https://gohugo.io/)，
 
 <br>
 
-<samp>code is licensed under <a href='./LICENSE'>MIT</a>,<br> words and images are licensed under <a href='https://creativecommons.org/licenses/by-nc-sa/4.0/'>CC BY-NC-SA 4.0</a></samp>.
