@@ -19,4 +19,4 @@ theme = 'paper'
   # home page profile
   avatar = 'https://avatars.githubusercontent.com/u/16541166?v=4'                 # gravatar email or image url
   name = 'Hotstrip'
-  bio = 'YOUR_BIO'
+  bio = '现技术人，终身学习者。会点儿 Java、Python，喜欢 Go'
