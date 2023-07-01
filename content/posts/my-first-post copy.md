@@ -1,6 +1,6 @@
 ---
-title: "{{ replace .Name "-" " " | title }}"
-date: {{ .Date }}
+title: "My First Post"
+date: 2023-07-01T11:25:40+08:00
 draft: true
 ---
 
