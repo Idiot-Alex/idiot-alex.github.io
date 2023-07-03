@@ -32,7 +32,7 @@ brew install hugo 如果是 Windows 系统：
 2. hugo 安装和创建网站 2.1 hugo 安装 如果是 MacOS 系统：
 brew install hugo 如果是 Windows 系统：
 # 使用 Chocolatey choco install hugo-extended # 使用 Scoop scoop install hugo-extended # 使用 Winget winget install Hugo.Hugo.Extended Windows 虽然提供了 3 种安装方法，但是每一种都需要先安装对应的软件。
-安装好 Hugo 之后，可以使用 hugo version 来确认是否成功，如下图： 2."><meta itemprop=datePublished content="2023-07-01T11:25:40+08:00"><meta itemprop=dateModified content="2023-07-01T11:25:40+08:00"><meta itemprop=wordCount content="468"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="使用 Hugo 建立自己的 Blog"><meta name=twitter:description content="使用 Hugo 建立自己的 Blog 1. 序 我想要拥有一个属于自己的 Blog，这件事情可以追溯到刚开始接触编程的时候，已经 6 年多了吧。
+安装好 Hugo 之后，可以使用 hugo version 来确认是否成功，如下图： 2."><meta itemprop=datePublished content="2023-07-01T11:25:40+08:00"><meta itemprop=dateModified content="2023-07-01T11:25:40+08:00"><meta itemprop=wordCount content="467"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="使用 Hugo 建立自己的 Blog"><meta name=twitter:description content="使用 Hugo 建立自己的 Blog 1. 序 我想要拥有一个属于自己的 Blog，这件事情可以追溯到刚开始接触编程的时候，已经 6 年多了吧。
 但是由于各种原因，总是一直搁置这件事情。
 从一开始的年少轻狂，妄想自己做一个 Blog 系统；到为了满足我挑剔的眼光，寻找自己各种花里胡哨的 Blog 网站；再到兴致勃勃开通公众号，幻想自己能大展拳脚&mldr;..
 直到现在，我的 Blog 依然没有建立，但我想改变下这种现状。
@@ -141,6 +141,6 @@ theme = &#39;paper&#39;
 <img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031533926.png alt="copy token"></li><li>进入对应的 GitHub 项目下，依次点击 Settings->Secrets->Actions 进入添加 Action secrets 的界面，点击 New repository secret 按钮
 <img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031535618.png alt="new secret key"></li><li>将第 3 步生成的 token 粘贴到新的 secret 输入框中，注意 name 需要跟上面 hugo.yaml 文件中的值保持一致（yaml 文件为 secrets.WORKFLOW_TOKEN，对应的name 为 WORKFLOW_TOKEN）
 <img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031540417.png alt="save secret key"></li></ol><p>然后，对该仓库的每次推送，github 都会自动执行对应的部署操作，每次的结果都会放到 <strong>gp-pages</strong> 分支。我们只需要把 <strong>gp-pages</strong> 通过 pages 服务发布出去就行了。</p><p>进入对应的 GitHub 项目下，依次点击 Settings->Secrets->Pages 进入类似下面的页面，选择分支保存就行。
-<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031546971.png alt=pages></p><p>完成之后，我们就拥有了一个可以公网访问的 blog 网站了，就是 <strong>https://&lt;Github ID>.github.io</strong></p></section></article></main><footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"><div class=mr-auto>&copy; 2023
+<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031546971.png alt=pages></p><p>完成之后，我们就拥有了一个可以公网访问的 blog 网站了，就是 <strong><a href=https://idiot-alex.github.io>https://idiot-alex.github.io</a></strong></p></section></article></main><footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"><div class=mr-auto>&copy; 2023
 <a class=link href=https://idiot-alex.github.io/>Hotstrip Site</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
 <a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Theme Paper</a></footer></body></html>
