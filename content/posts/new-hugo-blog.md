@@ -172,4 +172,4 @@ jobs:
 进入对应的 GitHub 项目下，依次点击 Settings->Secrets->Pages 进入类似下面的页面，选择分支保存就行。
 ![pages](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307031546971.png)
 
-完成之后，我们就拥有了一个可以公网访问的 blog 网站了，就是 https://<Github ID>.github.io
+完成之后，我们就拥有了一个可以公网访问的 blog 网站了，就是 **https://\<Github ID\>.github.io**
