@@ -1,0 +1,148 @@
+<!doctype html><html class="not-ready text-sm lg:text-base" style=--bg:#faf6f1 lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>Frp 内网穿透安装说明文档 - Hotstrip Site</title><meta name=theme-color><meta name=description content="序 最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：
+Nuc 会放置在家里面，需要能支持创建虚拟机 某些服务或者虚拟机要支持能够暴露给外网环境使用 针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。 1. 准备工作 frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。
+想要正常使用 frp，需要提前准备好这几点：
+一台能公网访问的服务器，比如阿里云、腾讯云的云服务器 至少一台局域网内的电脑，并且该电脑需要能访问公网 我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。
+假设性条件： 云服务器 IP：101.101.101.101
+下面是我的要求：
+能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面 能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh 能通过外网远程连接 Nuc 虚拟机 Windows 能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh 简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。"><meta name=author content="Hotstrip"><link rel="preload stylesheet" as=style href=https://idiot-alex.github.io/main.min.css><script defer src=https://idiot-alex.github.io/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://idiot-alex.github.io/theme.png><link rel=preload as=image href="https://avatars.githubusercontent.com/u/16541166?v=4"><link rel=preload as=image href=https://idiot-alex.github.io/github.svg><link rel=preload as=image href=https://idiot-alex.github.io/rss.svg><link rel=icon href=https://idiot-alex.github.io/favicon.ico><link rel=apple-touch-icon href=https://idiot-alex.github.io/apple-touch-icon.png><meta name=generator content="Hugo 0.115.0"><meta property="og:title" content="Frp 内网穿透安装说明文档"><meta property="og:description" content="序 最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：
+Nuc 会放置在家里面，需要能支持创建虚拟机 某些服务或者虚拟机要支持能够暴露给外网环境使用 针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。 1. 准备工作 frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。
+想要正常使用 frp，需要提前准备好这几点：
+一台能公网访问的服务器，比如阿里云、腾讯云的云服务器 至少一台局域网内的电脑，并且该电脑需要能访问公网 我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。
+假设性条件： 云服务器 IP：101.101.101.101
+下面是我的要求：
+能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面 能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh 能通过外网远程连接 Nuc 虚拟机 Windows 能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh 简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。"><meta property="og:type" content="article"><meta property="og:url" content="https://idiot-alex.github.io/posts/frp-guide/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2022-12-22T00:14:41+08:00"><meta property="article:modified_time" content="2022-12-22T00:14:41+08:00"><meta itemprop=name content="Frp 内网穿透安装说明文档"><meta itemprop=description content="序 最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：
+Nuc 会放置在家里面，需要能支持创建虚拟机 某些服务或者虚拟机要支持能够暴露给外网环境使用 针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。 1. 准备工作 frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。
+想要正常使用 frp，需要提前准备好这几点：
+一台能公网访问的服务器，比如阿里云、腾讯云的云服务器 至少一台局域网内的电脑，并且该电脑需要能访问公网 我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。
+假设性条件： 云服务器 IP：101.101.101.101
+下面是我的要求：
+能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面 能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh 能通过外网远程连接 Nuc 虚拟机 Windows 能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh 简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。"><meta itemprop=datePublished content="2022-12-22T00:14:41+08:00"><meta itemprop=dateModified content="2022-12-22T00:14:41+08:00"><meta itemprop=wordCount content="717"><meta itemprop=keywords content><meta name=twitter:card content="summary"><meta name=twitter:title content="Frp 内网穿透安装说明文档"><meta name=twitter:description content="序 最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：
+Nuc 会放置在家里面，需要能支持创建虚拟机 某些服务或者虚拟机要支持能够暴露给外网环境使用 针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。 1. 准备工作 frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。
+想要正常使用 frp，需要提前准备好这几点：
+一台能公网访问的服务器，比如阿里云、腾讯云的云服务器 至少一台局域网内的电脑，并且该电脑需要能访问公网 我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。
+假设性条件： 云服务器 IP：101.101.101.101
+下面是我的要求：
+能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面 能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh 能通过外网远程连接 Nuc 虚拟机 Windows 能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh 简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。"></head><body class="text-black duration-200 ease-out dark:text-white"><header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center"><div class="relative z-50 mr-auto flex items-center"><a class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold" href=https://idiot-alex.github.io/>Hotstrip Site</a><div class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf6f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"#000":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"><nav class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"><a class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style=--url:url(./github.svg) href=https://github.com/github.com/Idiot-Alex target=_blank rel=me>github</a>
+<a class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style=--url:url(./rss.svg) href=https://idiot-alex.github.io/index.xml target=_blank rel=alternate>rss</a></nav></div></header><main class="prose prose-neutral relative mx-auto min-h-[calc(100%-10rem)] max-w-3xl px-8 pb-24 pt-16 dark:prose-invert"><article><header class=mb-20><h1 class="!my-0 pb-2.5">Frp 内网穿透安装说明文档</h1><div class="text-sm opacity-60"><time>Dec 22, 2022</time></div></header><section><h2 id=序>序</h2><p>最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：</p><ol><li>Nuc 会放置在家里面，需要能支持创建虚拟机</li><li>某些服务或者虚拟机要支持能够暴露给外网环境使用</li></ol><p>针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。
+<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040021373.png alt></p><h2 id=1-准备工作>1. 准备工作</h2><p>frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。</p><p>想要正常使用 frp，需要提前准备好这几点：</p><ol><li>一台能公网访问的服务器，比如阿里云、腾讯云的云服务器</li><li>至少一台局域网内的电脑，并且该电脑需要能访问公网</li></ol><p>我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。</p><p>假设性条件：
+云服务器 IP：101.101.101.101</p><p>下面是我的要求：</p><ol><li>能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面</li><li>能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh</li><li>能通过外网远程连接 Nuc 虚拟机 Windows</li><li>能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh</li></ol><p>简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。</p><p>说回 frp，首先需要下载 frp 的服务和 frp 客户端，可以通过 github 下载。
+本文以 <a href=https://github.com/fatedier/frp/releases/tag/v0.44.0>https://github.com/fatedier/frp/releases/tag/v0.44.0</a> 版本为例。</p><p>frp 软件支持的平台挺多，根据实际情况选择版本。
+<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040021965.png alt></p><blockquote><p>需要注意的是，每个软件包里面都包含了 frp 服务端和 frp 客户端软件，如果是不通系统之间做内网穿透，需要下载多个软件包。</p><p>比如使用 CentOS 安装 frp 服务端，使用 Windows 安装 frp 客户端，就需要下载 _linux_amd 版本和 _windows_amd 版本，分别使用里面的 frps 文件和 frpc 文件。</p></blockquote><h2 id=2-安装-frp-服务端>2. 安装 frp 服务端</h2><p>frp 服务端需要安装到公网可访问的云服务器上。</p><p>frp 服务端只需要两个文件：</p><ul><li>frps</li><li>frps.ini</li></ul><p>安装步骤：</p><ol><li>下载 frp 软件，解压到云服务器 CentOS 系统上，我的安装位置是 /usr/local/frp_0.44.0_linux_amd64</li><li>使用 vim 编辑 frps.ini 配置文件，写入下面内容：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>common<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 绑定端口，默认 7000</span>
+</span></span><span style=display:flex><span>bind_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>17000</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务 web 控制台端口，默认 7500</span>
+</span></span><span style=display:flex><span>dashboard_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>17500</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务 web 控制台用户名</span>
+</span></span><span style=display:flex><span>dashboard_user <span style=color:#f92672>=</span> admin
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务 web 控制台密码</span>
+</span></span><span style=display:flex><span>dashboard_pwd <span style=color:#f92672>=</span> <span style=color:#ae81ff>123455</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 用于 frp 服务端和客户端验证的 token</span>
+</span></span><span style=display:flex><span>token <span style=color:#f92672>=</span> qwertyuiodfghjkertyughj
+</span></span></code></pre></div><ol start=3><li>启动 frp 服务端软件，使用下面命令启动：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>./frps -c ./frps.ini
+</span></span></code></pre></div><ol start=4><li>访问该服务器 17500 端口，输入用户名密码即可进入下面类似页面：</li></ol><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040024137.png alt></p><p>到此为止，frp 服务端就已经配置好了，接下来我们配置 frp 客户端。</p><h2 id=3-安装-frp-客户端>3. 安装 frp 客户端</h2><p>在云服务器上安装好 frp 服务端之后，我们还需要安装 frp 客户端，然后使用 frp 来一一完成我上面的需求。</p><p>frp 客户端的安装方式和 frp 服务端一样，同样只需要两个文件：</p><ul><li>frpc</li><li>frpc.ini</li></ul><p>服务启动方式也一样：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>./frpc -c ./frpc.ini
+</span></span></code></pre></div><p>主要是 frpc.ini 配置文件不一样，下面是针对不同的需求配置不同的内容。</p><h3 id=1-实现外网访问-nuc-宿主机-centos-的-cockpit-管理页面>1. 实现外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面</h3><p>针对这个需求，需要在我的 Nuc 宿主机上安装 frp 客户端，然后防火墙开放 9090 端口，最后在 frp 客户端配置文件上配置好 9090 端口的转发规则。</p><p>安装步骤：</p><ol><li>下载 frp 软件，解压到 Nuc 宿主机 CentOS 系统上，我的安装位置是 /usr/local/frp_0.44.0_linux_amd64</li><li>使用 vim 编辑 frpc.ini 配置文件，写入下面内容：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>common<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端 IP</span>
+</span></span><span style=display:flex><span>server_addr <span style=color:#f92672>=</span> 101.101.101.101
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端口</span>
+</span></span><span style=display:flex><span>server_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>17000</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># tls 配置</span>
+</span></span><span style=display:flex><span>tls_enable <span style=color:#f92672>=</span> true
+</span></span><span style=display:flex><span><span style=color:#75715e># 用于 frp 服务端和客户端验证的 token</span>
+</span></span><span style=display:flex><span>token <span style=color:#f92672>=</span> qwertyuiodfghjkertyughj
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 访问 cockpit web 配置，名称随意，不冲突就好</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>nuc web<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>type <span style=color:#f92672>=</span> tcp
+</span></span><span style=display:flex><span>local_ip <span style=color:#f92672>=</span> 127.0.0.1
+</span></span><span style=display:flex><span>local_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>9090</span>
+</span></span><span style=display:flex><span>remote_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>19090</span>
+</span></span></code></pre></div><ol start=3><li>启动 frp 服务端软件，使用下面命令启动：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>./frpc -c ./frpc.ini
+</span></span></code></pre></div><p>启动完成之后，可以访问下云服务器部署的 frp 服务端 web 控制台看到新增的一个 TCP 代理，然后我们只需要开放云服务器上的 19090 端口之后就可以通过 http://101.101.101.101:19090/ 访问原本在 Nuc 宿主机 CentOS 系统的 Cockpit web 页面了。
+<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040032675.png alt>
+<img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040032357.png alt></p><h3 id=2-实现外网远程连接-nuc-宿主机-centos-的-ssh>2. 实现外网远程连接 Nuc 宿主机 CentOS 的 ssh</h3><p>针对这个需求我是想通过访问云服务器（比如 IP 地址为 101.101.101.101）的 10022 端口，使用 ssh 协议直接连接到 Nuc 宿主机 CentOS 的服务器。</p><p>由于上面已经安装好 frp 客户端软件了，现在只需要修改 frp 客户端配置文件，然后重启 frp 客户端服务就可以。</p><p>配置步骤如下：</p><ol><li>进入 Nuc 宿主机 CentOS 系统 /usr/local/frp_0.44.0_linux_amd64 目录</li><li>使用 vim 编辑 frpc.ini 配置文件，写入下面内容（ssh 部分为新增部分）：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>common<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端 IP</span>
+</span></span><span style=display:flex><span>server_addr <span style=color:#f92672>=</span> 101.101.101.101
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端口</span>
+</span></span><span style=display:flex><span>server_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>17000</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># tls 配置</span>
+</span></span><span style=display:flex><span>tls_enable <span style=color:#f92672>=</span> true
+</span></span><span style=display:flex><span><span style=color:#75715e># 用于 frp 服务端和客户端验证的 token</span>
+</span></span><span style=display:flex><span>token <span style=color:#f92672>=</span> qwertyuiodfghjkertyughj
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 访问 cockpit web 配置，名称随意，不冲突就好</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>nuc web<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>type <span style=color:#f92672>=</span> tcp
+</span></span><span style=display:flex><span>local_ip <span style=color:#f92672>=</span> 127.0.0.1
+</span></span><span style=display:flex><span>local_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>9090</span>
+</span></span><span style=display:flex><span>remote_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>19090</span>
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># ssh 访问配置，新增内容</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>ssh<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>type <span style=color:#f92672>=</span> tcp
+</span></span><span style=display:flex><span>local_ip <span style=color:#f92672>=</span> 127.0.0.1
+</span></span><span style=display:flex><span>local_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>22</span>
+</span></span><span style=display:flex><span>remote_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>10022</span>
+</span></span></code></pre></div><ol start=3><li>启动 frp 服务端软件，使用下面命令启动：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>./frpc -c ./frpc.ini
+</span></span></code></pre></div><p>同样的，需要保证 Nuc 宿主机 CentOS 系统开放了 22 端口，以及云服务器开放了 10022 端口。然后就可以使用 <code>ssh -p 10022 user@101.101.101.101</code>访问 Nuc 宿主机的 CentOS 系统了。</p><blockquote><p>frp 服务端的 web 控制页面也可以看到新的 TCP 代理配置。</p></blockquote><h3 id=3-实现外网远程连接-nuc-虚拟机-windows>3. 实现外网远程连接 Nuc 虚拟机 Windows</h3><p>针对这个需求我是想通过访问云服务器（比如 IP 地址为 101.101.101.101）的 13389 端口，使用类似 RDP 的方式直接远程连接到 Nuc 宿主机 Windows 电脑。</p><p>安装步骤：</p><ol><li>下载 frp 软件，解压到 Nuc 虚拟机 Windows 系统上，我的安装位置是 C:\sorftware\frp_0.44.0_windows_amd64</li><li>使用文本编辑软件编辑 frpc.ini 配置文件，写入下面内容：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>common<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端 IP</span>
+</span></span><span style=display:flex><span>server_addr <span style=color:#f92672>=</span> 101.101.101.101
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 服务端口</span>
+</span></span><span style=display:flex><span>server_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>17000</span>
+</span></span><span style=display:flex><span><span style=color:#75715e># tls 配置</span>
+</span></span><span style=display:flex><span>tls_enable <span style=color:#f92672>=</span> true
+</span></span><span style=display:flex><span><span style=color:#75715e># 用于 frp 服务端和客户端验证的 token</span>
+</span></span><span style=display:flex><span>token <span style=color:#f92672>=</span> qwertyuiodfghjkertyughj
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e># 访问 windows rdp 配置，名称随意，不冲突就好</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>rdp<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>type <span style=color:#f92672>=</span> tcp
+</span></span><span style=display:flex><span>local_ip <span style=color:#f92672>=</span> 127.0.0.1
+</span></span><span style=display:flex><span>local_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>3389</span>
+</span></span><span style=display:flex><span>remote_port <span style=color:#f92672>=</span> <span style=color:#ae81ff>13389</span>
+</span></span></code></pre></div><ol start=3><li>启动 frp 服务端软件，使用下面命令启动：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>./frpc.exe -c ./frpc.ini
+</span></span></code></pre></div><ol start=4><li>开放 Windows 系统远程桌面连接，默认端口号 3389</li></ol><p>启动完成之后，可以访问下云服务器部署的 frp 服务端 web 控制台看到新增的一个 TCP 代理，然后我们只需要开放云服务器上的 13389 端口之后就可以通过类似 RDP 的软件访问 101.101.101.101:13389 远程连接原本在 Nuc 虚拟机 Windows 系统。</p><blockquote><p>针对以上第 4 个需求与第 2 个需求一致，照猫画虎即可。</p></blockquote><h2 id=4-服务自启>4. 服务自启</h2><p>虽然到目前为止成功解决了我的需求，但是有一个问题——那就是 frp 服务不会随着系统的系统而自启动。这一点对虚拟机是不够友好的，毕竟虚拟机可能不会一直启动，需要启动的时候可能暂时没在家里而无法操作，这样的内网穿透就不算完整了。</p><p>所以针对这个问题，下面分别提供两种系统的服务自启方案。</p><h3 id=1-linux-系统服务自启动>1. Linux 系统服务自启动</h3><p>Linux 系统 frp 服务自启比较好做，提供一个 xx.service 文件即可。</p><p>废话不多说，上步骤：</p><ol><li>在 <code>/etc/systemd/system/</code>目录新建文件 frps.service 或者 frpc.service，分别针对 frp 服务端和 frp 客户端</li><li>在 frps.service 或者 frpc.service 文件中输入以下内容（注意 frp 安装目录）：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>Unit<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Description<span style=color:#f92672>=</span>frps daemon
+</span></span><span style=display:flex><span>After<span style=color:#f92672>=</span>syslog.target network.target
+</span></span><span style=display:flex><span>Wants<span style=color:#f92672>=</span>network.target
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Service<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Type<span style=color:#f92672>=</span>simple
+</span></span><span style=display:flex><span>ExecStart<span style=color:#f92672>=</span>/usr/local/frp_0.44.0_linux_amd64/frps -c /usr/local/frp_0.44.0_linux_amd64/frps.ini
+</span></span><span style=display:flex><span>Restart<span style=color:#f92672>=</span>always
+</span></span><span style=display:flex><span>RestartSec<span style=color:#f92672>=</span>1min
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Install<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>WantedBy<span style=color:#f92672>=</span>multi-user.target
+</span></span></code></pre></div><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#f92672>[</span>Unit<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Description<span style=color:#f92672>=</span>frpc daemon
+</span></span><span style=display:flex><span>After<span style=color:#f92672>=</span>syslog.target network.target
+</span></span><span style=display:flex><span>Wants<span style=color:#f92672>=</span>network.target
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Service<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>Type<span style=color:#f92672>=</span>simple
+</span></span><span style=display:flex><span>ExecStart<span style=color:#f92672>=</span>/usr/local/frp_0.44.0_linux_amd64/frpc -c /usr/local/frp_0.44.0_linux_amd64/frpc.ini
+</span></span><span style=display:flex><span>Restart<span style=color:#f92672>=</span>always
+</span></span><span style=display:flex><span>RestartSec<span style=color:#f92672>=</span>1min
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>[</span>Install<span style=color:#f92672>]</span>
+</span></span><span style=display:flex><span>WantedBy<span style=color:#f92672>=</span>multi-user.target
+</span></span></code></pre></div><ol start=3><li>使用下面命令打开开启自启服务：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># frp 服务端自启</span>
+</span></span><span style=display:flex><span>systemctl enable frps
+</span></span><span style=display:flex><span><span style=color:#75715e># frp 客户端自启</span>
+</span></span><span style=display:flex><span>systemctl enable frpc
+</span></span><span style=display:flex><span><span style=color:#75715e># 其他命令</span>
+</span></span><span style=display:flex><span>systemctl start frps
+</span></span><span style=display:flex><span>systemctl stop frps
+</span></span><span style=display:flex><span>systemctl restart frps
+</span></span></code></pre></div><h3 id=2-windows-系统服务自启动>2. Windows 系统服务自启动</h3><p>Windows 系统服务自启动会稍微麻烦一点，需要借助 NSSM 软件来完成服务注册。</p><p>NSSM 官网地址：<a href=https://nssm.cc/download>https://nssm.cc/download</a></p><p>操作步骤：</p><ol><li>先创建一个 bat 脚本，用来启动 frp 客户端服务，比如 frpc_start.bat</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span>C:<span style=color:#ae81ff>\s</span>oftware<span style=color:#ae81ff>\f</span>rp_0.44.0_windows_amd64/frpc.exe -c C:<span style=color:#ae81ff>\s</span>oftware<span style=color:#ae81ff>\f</span>rp_0.44.0_windows_amd64/frpc.ini
+</span></span></code></pre></div><ol start=2><li>下载 NSSM 软件，解压下载的 zip 文件至本地目录，我的目录是 C:\software\nssm2.24</li><li>打开 CMD 命令行窗口进入 NSSM 目录，输入下面命令（Windows 一般都作为 frp 客户端）：</li></ol><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-shell data-lang=shell><span style=display:flex><span><span style=color:#75715e># frpc 为服务名称</span>
+</span></span><span style=display:flex><span>./nssm.exe install frpc
+</span></span></code></pre></div><ol start=3><li>输入完成之后，会弹出类似下面的窗口，选择第一步编写好的启动脚本，点击「Install service」</li></ol><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040034120.png alt></p><ol start=4><li>服务启动：通过以上操作后，即可以在本地计算机服务列表中看到 frpc 服务，选择自启动的方式即可。打开本地服务程序的方法为：按键 Win+R，输入 services.msc。</li></ol><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/blog/202307040035249.png alt></p><blockquote><p>nssm 其他命令参考：</p><ol><li>创建一个服务名称为 servicename 的服务
+nssm install servicename</li><li>启动创建的servername服务
+nssm start servicename</li><li>停止创建的servername服务
+nssm stop servicename</li><li>重新启动创建的servername服务
+nssm restart servicename</li><li>删除创建的servername服务
+nssm remove servicename</li></ol></blockquote><p>到此为止，关于 frp 的使用就结束了。</p></section><nav class="mt-24 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]"><a class="flex w-1/2 items-center rounded-l-md p-6 pr-3 no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://idiot-alex.github.io/posts/new-hugo-blog/><span class=mr-1.5>←</span><span>使用 Hugo 建立自己的 Blog</span></a></nav></article></main><footer class="opaco mx-auto flex h-[5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"><div class=mr-auto>&copy; 2023
+<a class=link href=https://idiot-alex.github.io/>Hotstrip Site</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>Theme Paper</a></footer></body></html>

@@ -9,4 +9,10 @@
 2. hugo 安装和创建网站 2.1 hugo 安装 如果是 MacOS 系统：
 brew install hugo 如果是 Windows 系统：
 # 使用 Chocolatey choco install hugo-extended # 使用 Scoop scoop install hugo-extended # 使用 Winget winget install Hugo.Hugo.Extended Windows 虽然提供了 3 种安装方法，但是每一种都需要先安装对应的软件。
-安装好 Hugo 之后，可以使用 hugo version 来确认是否成功，如下图： 2.</description></item></channel></rss>
+安装好 Hugo 之后，可以使用 hugo version 来确认是否成功，如下图： 2.</description></item><item><title>Frp 内网穿透安装说明文档</title><link>https://idiot-alex.github.io/posts/frp-guide/</link><pubDate>Thu, 22 Dec 2022 00:14:41 +0800</pubDate><guid>https://idiot-alex.github.io/posts/frp-guide/</guid><description>序 最近买了一台 Intell Nuc 电脑打算放在家里面当作一个工作站使用，对于我自己而言有一下几个需求：
+Nuc 会放置在家里面，需要能支持创建虚拟机 某些服务或者虚拟机要支持能够暴露给外网环境使用 针对以上两点，也就是需要对 Nuc 安装虚拟机软件，同时需要一个内网穿透的软件。对于前者好说，虚拟机软件有很多；对于后者，今天分享下使用 frp 软件的使用方法。 1. 准备工作 frp 是一个提供内网穿透方案的软件，简单来讲就是一个网络中转的工具，类似中介的角色。
+想要正常使用 frp，需要提前准备好这几点：
+一台能公网访问的服务器，比如阿里云、腾讯云的云服务器 至少一台局域网内的电脑，并且该电脑需要能访问公网 我使用的是阿里云的云服务器（CentOS），配置不高，也就 1 核 2 G；局域网内的电脑就是上面提到的放置在家里面的 Nuc，我在 Nuc 里面安装好了 CentOS 系统，然后在 CentOS 里面安装了 Virtual Box Manage 虚拟机托管软件，并且创建了两台虚拟机，一台 Windows，一台 CentOS。
+假设性条件： 云服务器 IP：101.101.101.101
+下面是我的要求：
+能通过外网访问 Nuc 宿主机 CentOS 的 CockPit 管理页面 能通过外网远程连接 Nuc 宿主机 CentOS 的 ssh 能通过外网远程连接 Nuc 虚拟机 Windows 能通过外网远程连接 Nuc 虚拟机 CentOS 的 ssh 简单解释下，CentOS 的 CockPit 是一款监控 CentOS 系统的软件，默认会使用 9090 端口作为 web 管理页面的入口；ssh 这里就不赘述了；Windows 需要远程访问，依赖 RDP 服务，默认端口是 3389。</description></item></channel></rss>
