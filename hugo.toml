@@ -5,6 +5,7 @@ theme = 'paper'
 
 # paper params
 [params]
+  favicon = 'https://chenjinxin.cn/images/favicon.png'
   # color style
   color = 'linen'                           # linen, wheat, gray, light
 
