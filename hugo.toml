@@ -3,6 +3,10 @@ languageCode = 'zh-cn'
 title = 'Hotstrip Site'
 theme = 'paper'
 
+[taxonomies]
+  tag = "tags"
+  category = "categories"
+
 # paper params
 [params]
   # color style
