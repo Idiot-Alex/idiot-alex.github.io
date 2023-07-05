@@ -2,7 +2,7 @@
 title: "使用 Hugo 建立自己的 Blog"
 date: 2023-07-01T11:25:40+08:00
 tags: ["hugo", "blog"]
-categories: ["coding"]
+categories: ["博客改造"]
 draft: false
 ---
 

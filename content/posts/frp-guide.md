@@ -1,6 +1,8 @@
 ---
 title: "Frp 内网穿透安装说明文档"
 date: 2022-12-22T00:14:41+08:00
+tags: ["frp"]
+categories: ["工具使用手册"]
 draft: false
 ---
 
