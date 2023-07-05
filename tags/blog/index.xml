@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>blog on Hotstrip Site</title><link>https://idiot-alex.github.io/tags/blog/</link><description>Recent content in blog on Hotstrip Site</description><generator>Hugo -- gohugo.io</generator><language>zh-cn</language><lastBuildDate>Sat, 01 Jul 2023 11:25:40 +0800</lastBuildDate><atom:link href="https://idiot-alex.github.io/tags/blog/index.xml" rel="self" type="application/rss+xml"/><item><title>使用 Hugo 建立自己的 Blog</title><link>https://idiot-alex.github.io/posts/new-hugo-blog/</link><pubDate>Sat, 01 Jul 2023 11:25:40 +0800</pubDate><guid>https://idiot-alex.github.io/posts/new-hugo-blog/</guid><description>1. 序 我想要拥有一个属于自己的 Blog，这件事情可以追溯到刚开始接触编程的时候，已经 6 年多了吧。
+但是由于各种原因，总是一直搁置这件事情。
+从一开始的年少轻狂，妄想自己做一个 Blog 系统；到为了满足我挑剔的眼光，寻找自己各种花里胡哨的 Blog 网站；再到兴致勃勃开通公众号，幻想自己能大展拳脚&amp;hellip;..
+直到现在，我的 Blog 依然没有建立，但我想改变下这种现状。
+我现在想要的，不一定是一个 Blog，只是想有个地方能记录我的一些文字，不再苛求各种各样的花里胡哨的功能，能把 markdown 文件原样显示在网页上就好，能在网络上公开就行。
+使用 markdown，是因为它足够简单，跟纯文本文件一样随时随地都能写，又能用简单的符号来排版内容，不需要想 html 一样为了排版需要加上与内容无关的标签和样式。
+需要能在网络上公开，不仅能满足自己的虚荣心；还能有助于提高自己的内容质量，毕竟没人愿意在自己的衣服上随手涂鸦。
+因此，我这次打算用 hugo、github 来建立自己的 blog。
+2. hugo 安装和创建网站 2.1 hugo 安装 如果是 MacOS 系统：
+brew install hugo 如果是 Windows 系统：
+# 使用 Chocolatey choco install hugo-extended # 使用 Scoop scoop install hugo-extended # 使用 Winget winget install Hugo.Hugo.Extended Windows 虽然提供了 3 种安装方法，但是每一种都需要先安装对应的软件。
+安装好 Hugo 之后，可以使用 hugo version 来确认是否成功，如下图： 2.</description></item></channel></rss>
