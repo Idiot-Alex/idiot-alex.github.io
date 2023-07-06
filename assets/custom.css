@@ -11,3 +11,20 @@ article pre {
   margin-left: 0rem;
   margin-right: 0rem;
 }
+
+.w-screen {
+  width: 100vw;
+}
+
+.header-bg {
+  background: var(--bg);
+  z-index: 10;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ebebe5;
+}
+
+.pt-28 {
+  padding-top: 7rem;
+}
