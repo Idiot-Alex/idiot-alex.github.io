@@ -28,3 +28,7 @@ article pre {
 .pt-28 {
   padding-top: 7rem;
 }
+
+.min-h-\[calc\(100\%-5rem\)\] {
+  min-height: calc(100% - 5rem);
+}
