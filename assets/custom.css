@@ -54,11 +54,49 @@ article blockquote {
   right: 0;
   width: calc((calc(100vw - 48rem)) /2);
   border: 1px solid #ebebe5;
-  border: 1px solid #ebebe5;
   border-radius: 5px;
   box-shadow: 1px 1px #eceaea;
+  background-color: rgb(0 0 0/3%)
 }
 
 .mr-4 {
   margin-right: 1rem/* 16px */;
+}
+
+.categories {
+  list-style: none; /* 去掉默认的列表样式 */
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  display: inline-block; /* 将列表项变成行内块元素 */
+  margin-right: 10px; /* 制造列表项之间的间隔 */
+  margin-bottom: 10px;
+}
+
+.categories li a {
+  display: block; /* 将链接变成块级元素，使其可以占据整个列表项 */
+  padding: 5px 10px; /* 为链接添加内边距，让其区域更大，更容易点击 */
+  background-color: #e2e2de; /* 添加背景色 */
+  color: #333; /* 添加文字颜色 */
+  text-decoration: none; /* 去掉下划线 */
+  border-radius: 5px; /* 添加圆角 */
+}
+
+.categories li a:hover {
+  background-color: #333; /* 鼠标悬停时改变背景色 */
+  color: #fff; /* 鼠标悬停时改变文字颜色 */
+}
+
+.categories-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tags-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
 }

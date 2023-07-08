@@ -1,0 +1,57 @@
+<div class="right-panel mt-3 mr-4 p-3">
+  <!-- 当前页面是文章内容页面 -->
+  {{ if in .File.Dir "posts" }}
+    <!-- Post Categories -->
+    {{ with .Params.categories }}
+    <h2 class="categories-title">文章分类</h2>
+    <ul class="categories">
+      {{ range . }}
+        <li><a href="{{ "categories" | absURL}}/{{ . | urlize }}">{{ . }}</a> </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+    
+    <!-- Post Tags -->
+    {{ if .Params.tags }}
+    <div class="mt-12 flex flex-col">
+      <h2 class="tags-title">文章标签</h2>
+      <footer class="flex flex-wrap">
+        {{ range .Params.tags }} {{ $href := print (absURL "tags/") (urlize .) }}
+        <a
+          class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+          href="{{ $href }}"
+          >{{ . }}</a
+        >
+        {{ end }}
+      </footer>
+    </div>
+    {{ end }}
+  {{ else }}
+    <!-- 当前页面不是文章内容 -->
+    <!-- All Categories -->
+    {{ with .Site.Taxonomies.categories }}
+    <h2 class="categories-title">所有文章分类</h2>
+    <ul class="categories">
+      {{ range $name, $taxonomy := . }}
+        <li><a href="{{ "categories" | absURL}}/{{ $name | urlize }}">{{ $name }}</a> </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
+    <!-- All Tags -->
+    {{ if .Site.Taxonomies.tags }}
+    <div class="mt-12 flex flex-col">
+      <h2 class="tags-title">所有文章标签</h2>
+      <footer class="flex flex-wrap">
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }} {{ $href := print (absURL "tags/") (urlize $name) }}
+        <a
+          class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+          href="{{ $href }}"
+          >{{ $name }}</a
+        >
+        {{ end }}
+      </footer>
+    </div>
+    {{ end }}
+  {{ end }}
+</div>
