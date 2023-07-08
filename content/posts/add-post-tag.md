@@ -87,3 +87,81 @@ draft: false
 重新访问页面，效果如下：
 
 ![image-20230705153131536](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307051531290.png)
+
+## 2. 调整分类标签的位置
+
+
+
+## 3. 固定头部
+
+搞定了分类和标签，但是每篇文章的内容在滚动时会把头部顶上去，我想把头部固定不随着页面滚动而消失。
+
+跟调整分类和标签部分的方法一样，首先找到主题下对应的页面，然后把页面复制到 layouts 目录里面去。
+
+比如我使用的是 paper 主题，就把 themes/paper/layouts/partials/header.html 文件复制到 layouts/partials/header.html，然后在这里面去修改样式就行。
+
+```html
+<!-- 修改之前的代码 -->
+<header class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <!-- 省略其他内容 -->
+</header>
+
+<!-- 修改之后的代码 -->
+<header class="fixed mx-auto w-screen header-bg border-bottom">
+  <div class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center">
+  <!-- 省略其他内容 -->
+  </div>
+</header>
+```
+
+可以看到，我就只是把原来的 header 标签换成了 div 标签，然后外面套了一层 header 标签，给它添加上我需要的样式，比如固定定位、设置宽度、加点边框等。
+
+新增的样式可能不生效，就在 assets 目录下面新增一个 custom.css 文件，然后在这个文件里面写样式内容。下面是一些参考的样式：
+
+```css
+/* Place custom css here. */
+img {
+  border: 0.5rem solid #ebebe5;
+  border-radius: 1rem;
+  --tw-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --tw-shadow-colored: 0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow,0 0 #0000),var(--tw-ring-shadow,0 0 #0000),var(--tw-shadow);
+}
+
+article pre {
+  margin-left: 0rem;
+  margin-right: 0rem;
+}
+
+article blockquote {
+  margin-left: 0rem !important;
+}
+
+.w-screen {
+  width: 100vw;
+}
+
+.header-bg {
+  background: var(--bg);
+  z-index: 10;
+}
+
+.border-bottom {
+  border-bottom: 1px solid #ebebe5;
+}
+
+/* main 部分文章内容往下移一点 */
+.pt-28 {
+  padding-top: 7rem;
+}
+
+.min-h-\[calc\(100\%-5rem\)\] {
+  min-height: calc(100% - 5rem);
+}
+```
+
+> 我这里目前调整了头部的定位、背景；给图片添加上了圆角和阴影；给代码块调整了占位宽度（原本的样式会导致代码块不会和段落对齐，感觉很难看）；引用块也是一样。
+
+完成之后的效果如下：
+
+![image-20230708104600159](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307081046850.png)

@@ -12,6 +12,10 @@ article pre {
   margin-right: 0rem;
 }
 
+article blockquote {
+  margin-left: 0rem !important;
+}
+
 .w-screen {
   width: 100vw;
 }
@@ -25,6 +29,7 @@ article pre {
   border-bottom: 1px solid #ebebe5;
 }
 
+/* for main */
 .pt-28 {
   padding-top: 7rem;
 }
