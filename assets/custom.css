@@ -37,3 +37,7 @@ article blockquote {
 .min-h-\[calc\(100\%-5rem\)\] {
   min-height: calc(100% - 5rem);
 }
+
+.h-\[5rem\] {
+  height: 5rem;
+}
