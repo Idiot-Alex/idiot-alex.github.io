@@ -90,7 +90,151 @@ draft: false
 
 ## 2. 调整分类标签的位置
 
+从效果图上看，分类和标签展示在了文章内容底部，不大符合我的预期。
 
+我更希望分类和标签能够显示在侧边，并且不会随着内容的滚动而消失。
+
+有了前面的基础，我们这次直接修改 layouts/_default/baseof.html 页面，引入一个新的页面，就叫做 right-panel.html 吧，这个文件放到 layouts/partials 目录，这个文件内容如下：
+
+```html
+<div class="right-panel mt-3 mr-4 p-3">
+  <!-- 当前页面是文章内容页面 -->
+  {{ if in .File.Dir "posts" }}
+    <!-- Post Categories -->
+    {{ with .Params.categories }}
+    <h2 class="categories-title">文章分类</h2>
+    <ul class="categories">
+      {{ range . }}
+        <li><a href="{{ "categories" | absURL}}/{{ . | urlize }}">{{ . }}</a> </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+    
+    <!-- Post Tags -->
+    {{ if .Params.tags }}
+    <div class="mt-12 flex flex-col">
+      <h2 class="tags-title">文章标签</h2>
+      <footer class="flex flex-wrap">
+        {{ range .Params.tags }} {{ $href := print (absURL "tags/") (urlize .) }}
+        <a
+          class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+          href="{{ $href }}"
+          >{{ . }}</a
+        >
+        {{ end }}
+      </footer>
+    </div>
+    {{ end }}
+  {{ else }}
+    <!-- 当前页面不是文章内容 -->
+    <!-- All Categories -->
+    {{ with .Site.Taxonomies.categories }}
+    <h2 class="categories-title">所有文章分类</h2>
+    <ul class="categories">
+      {{ range $name, $taxonomy := . }}
+        <li><a href="{{ "categories" | absURL}}/{{ $name | urlize }}">{{ $name }}</a> </li>
+      {{ end }}
+    </ul>
+    {{ end }}
+
+    <!-- All Tags -->
+    {{ if .Site.Taxonomies.tags }}
+    <div class="mt-12 flex flex-col">
+      <h2 class="tags-title">所有文章标签</h2>
+      <footer class="flex flex-wrap">
+        {{ range $name, $taxonomy := .Site.Taxonomies.tags }} {{ $href := print (absURL "tags/") (urlize $name) }}
+        <a
+          class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]"
+          href="{{ $href }}"
+          >{{ $name }}</a
+        >
+        {{ end }}
+      </footer>
+    </div>
+    {{ end }}
+  {{ end }}
+</div>
+```
+
+从代码上可以看到，整体内容分为两部分：
+
+1. 如果是文章页面，就显示该文章定义的分类和标签
+2. 如果不是文章页面，就显示本博客网站所有文章的分类和所有文章的标签
+
+> 可以通过当前文件的目录来判断是否是文章页面：如果是文章页面，它的目录肯定是在 content/posts 里面，我们通过 **.File.Dir** 变量获取到文件的目录
+
+然后在  layouts/_default/baseof.html 页面引入进来：
+
+```html
+<!-- ..... -->
+<!-- right panel for categories and tags-->
+{{ partial "right-panel.html" . }}
+
+{{ partial "footer.html" . }}
+```
+
+最后调整下 custom.css 文件的样式内容：
+
+```css
+.right-panel {
+  position: fixed;
+  top: 5rem;
+  right: 0;
+  width: calc((calc(100vw - 48rem)) /2);
+  border: 1px solid #ebebe5;
+  border-radius: 5px;
+  box-shadow: 1px 1px #eceaea;
+  background-color: rgb(0 0 0/3%)
+}
+
+.mr-4 {
+  margin-right: 1rem/* 16px */;
+}
+
+.categories {
+  list-style: none; /* 去掉默认的列表样式 */
+  margin: 0;
+  padding: 0;
+}
+
+.categories li {
+  display: inline-block; /* 将列表项变成行内块元素 */
+  margin-right: 10px; /* 制造列表项之间的间隔 */
+  margin-bottom: 10px;
+}
+
+.categories li a {
+  display: block; /* 将链接变成块级元素，使其可以占据整个列表项 */
+  padding: 5px 10px; /* 为链接添加内边距，让其区域更大，更容易点击 */
+  background-color: #e2e2de; /* 添加背景色 */
+  color: #333; /* 添加文字颜色 */
+  text-decoration: none; /* 去掉下划线 */
+  border-radius: 5px; /* 添加圆角 */
+}
+
+.categories li a:hover {
+  background-color: #333; /* 鼠标悬停时改变背景色 */
+  color: #fff; /* 鼠标悬停时改变文字颜色 */
+}
+
+.categories-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.tags-title {
+  margin-bottom: 10px;
+  font-size: 20px;
+  font-weight: 600;
+}
+```
+
+最后看看效果（非文章页面和文章页面都会显示分类和标签）：
+
+![image-20230709103259338](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307091033611.png)
+
+![image-20230709103340269](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307091033116.png)
 
 ## 3. 固定头部
 
