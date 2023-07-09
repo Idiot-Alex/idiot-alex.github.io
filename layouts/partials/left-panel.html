@@ -1,0 +1,92 @@
+<!-- 当前页面是文章内容页面 -->
+{{ if in .File.Dir "posts" }}
+  <div class="left-panel mt-3 ml-4 p-3">
+    <!-- Post navigation -->
+    <div id="nav"></div>
+    <script type="text/javascript">
+      // 获取固定头部的高度
+      let fixedHeaderHeight = document.getElementById('fixed-header').getBoundingClientRect().height;
+      // 获取内容容器
+      let content = document.getElementsByTagName('article')[0];
+      // 获取导航容器
+      let nav = document.getElementById('nav');
+
+      // 遍历所有 h1-h6 元素
+      for (let i = 1; i <= 6; i++) {
+        let hs = content.getElementsByTagName('h' + i);
+        for (let j = 0; j < hs.length; j++) {
+          // 创建导航链接
+          let link = document.createElement('a');
+          link.className = 'anchor text-black dark:text-white';
+          link.innerHTML = hs[j].innerHTML;
+          link.href = '#' + hs[j].id;
+          
+          // 创建导航项
+          let item = document.createElement('div');
+          item.className = 'nav-item mt-2';
+          item.style.paddingLeft = ((i-1) * 20) + 'px'; // 设置层级缩进
+          item.appendChild(link);
+          
+          // 将导航项添加到导航容器中
+          nav.appendChild(item);
+        }
+      }
+
+      // 获取所有包含锚点的链接
+      let links = nav.getElementsByTagName('a');
+      for (let i = 0; i < links.length; i++) {
+        // 如果链接中包含 #，则表示它是一个锚点链接
+        if (links[i].hash) {
+          let decodedHash = decodeURIComponent(links[i].hash.slice(1)); // 对锚点ID进行解码
+          let target = document.getElementById(decodedHash);
+          // 如果该锚点元素存在，则在点击链接时，将页面滚动到目标元素的正确位置
+          if (target) {
+            links[i].addEventListener('click', function(e) {
+              e.preventDefault(); // 阻止页面跳转
+
+              location.hash = this.hash; // 更新页面 URL 中的锚点
+
+              let targetTop = target.getBoundingClientRect().top + window.scrollY; // 获取目标元素的顶部位置
+              let scrollTo = targetTop - fixedHeaderHeight + 1; // 计算页面滚动的位置
+
+              // 使用平滑滚动效果滚动页面
+              window.scrollTo({
+                top: scrollTo,
+                behavior: 'smooth'
+              });
+            });
+          }
+        }
+      }
+
+      // 获取导航条和所有锚点
+      const navLinks = document.querySelectorAll("#nav a");
+      const anchors = document.querySelectorAll('article h1, article h2, article h3, article h4, article h5, article h6');
+
+      // 监听滚动事件
+      window.addEventListener("scroll", () => {
+        // 获取当前滚动位置
+        const currentScrollPos = window.pageYOffset;
+
+        // 遍历所有锚点，找到当前位于视口中的锚点
+        anchors.forEach((anchor) => {
+          const sectionTop = anchor.offsetTop;
+
+          if ((currentScrollPos + fixedHeaderHeight) >= sectionTop) {
+            // 给当前视口中的锚点所对应的导航项添加 active 类
+            navLinks.forEach((link) => {
+              if (!anchor.getAttribute("id")) {
+                document.querySelectorAll("#nav a[href='#']")[0].classList.add("active");
+              }
+              if (link.getAttribute("href") == "#" + anchor.getAttribute("id")) {
+                link.classList.add("active");
+              } else {
+                link.classList.remove("active");
+              }
+            });
+          }
+        });
+      });
+    </script>
+  </div>
+{{ end }}
