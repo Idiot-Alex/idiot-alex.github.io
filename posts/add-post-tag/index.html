@@ -1,0 +1,244 @@
+<!doctype html><html class="not-ready text-sm lg:text-base" style=--bg:#faf8f1 lang=zh-cn><head><meta charset=utf-8><meta http-equiv=x-ua-compatible content="IE=edge"><meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no"><title>给 Hugo Blog 添加分类和标签 - Hotstrip Site</title><meta name=theme-color><meta name=description content="0. 序 不久前把自己心心念念的 Blog 搭建起来了，但是不能给文章添加标签和分类，显得不够友好。
+搜了下资料，发现 Hugo 可以给文章添加标签和分类，那就把这个功能用起来吧，优化下我的 Blog。
+1. 开启分类功能 默认情况下，Hugo 就支持分类和标签，就算不填写下面的配置也会生效：
+# 在 hugo.toml 配置文件里面 [taxonomies] category = 'categories' tag = 'tags' 如果想要关闭分类和标签，需要添加下面的配置：
+# 在 hugo.toml 配置文件里面 disableKinds = ['taxonomy', 'term'] 当开启分类和标签功能之后，还需要在文章中添加对应的信息，像下面这样（在 new-hugo-blog.md 文件中）：
+--- title: &#34;使用 Hugo 建立自己的 Blog&#34; date: 2023-07-01T11:25:40+08:00 tags: [&#34;hugo&#34;, &#34;blog&#34;] categories: [&#34;博客改造&#34;] draft: false --- 如果运气好的话，启动 hugo 之后就能在文章内容底部看到设置的标签了。
+为啥说是运气好呢？
+是因为这个设置跟我们使用的主题有关系，我目前使用的 paper 主题，从上面的结果上看就只能看到 tags 生效了，但是 categories 并没有生效。
+当我们使用的主题不满足我们需求时，就需要考虑自己替换这部分主题的模板了。
+在 themes/paper/layouts/_default/single.html 文件里面（paper 换成你自己使用的主题名），我们可以找到配置分类和标签的地方，类似下面这样的代码：
+<!-- Post Tags --> {{ if ."><meta name=author content="Hotstrip"><link rel="preload stylesheet" as=style href=https://idiot-alex.github.io/main.min.css><script defer src=https://idiot-alex.github.io/highlight.min.js onload=hljs.initHighlightingOnLoad()></script>
+<link rel=preload as=image href=https://idiot-alex.github.io/theme.png><link rel=preload as=image href="https://avatars.githubusercontent.com/u/16541166?v=4"><link rel=preload as=image href=https://idiot-alex.github.io/github.svg><link rel=preload as=image href=https://idiot-alex.github.io/rss.svg><link rel=icon href=https://idiot-alex.github.io/favicon.ico><link rel=apple-touch-icon href=https://idiot-alex.github.io/apple-touch-icon.png><meta name=generator content="Hugo 0.115.2"><meta property="og:title" content="给 Hugo Blog 添加分类和标签"><meta property="og:description" content="0. 序 不久前把自己心心念念的 Blog 搭建起来了，但是不能给文章添加标签和分类，显得不够友好。
+搜了下资料，发现 Hugo 可以给文章添加标签和分类，那就把这个功能用起来吧，优化下我的 Blog。
+1. 开启分类功能 默认情况下，Hugo 就支持分类和标签，就算不填写下面的配置也会生效：
+# 在 hugo.toml 配置文件里面 [taxonomies] category = 'categories' tag = 'tags' 如果想要关闭分类和标签，需要添加下面的配置：
+# 在 hugo.toml 配置文件里面 disableKinds = ['taxonomy', 'term'] 当开启分类和标签功能之后，还需要在文章中添加对应的信息，像下面这样（在 new-hugo-blog.md 文件中）：
+--- title: &#34;使用 Hugo 建立自己的 Blog&#34; date: 2023-07-01T11:25:40+08:00 tags: [&#34;hugo&#34;, &#34;blog&#34;] categories: [&#34;博客改造&#34;] draft: false --- 如果运气好的话，启动 hugo 之后就能在文章内容底部看到设置的标签了。
+为啥说是运气好呢？
+是因为这个设置跟我们使用的主题有关系，我目前使用的 paper 主题，从上面的结果上看就只能看到 tags 生效了，但是 categories 并没有生效。
+当我们使用的主题不满足我们需求时，就需要考虑自己替换这部分主题的模板了。
+在 themes/paper/layouts/_default/single.html 文件里面（paper 换成你自己使用的主题名），我们可以找到配置分类和标签的地方，类似下面这样的代码：
+<!-- Post Tags --> {{ if ."><meta property="og:type" content="article"><meta property="og:url" content="https://idiot-alex.github.io/posts/add-post-tag/"><meta property="article:section" content="posts"><meta property="article:published_time" content="2023-07-05T11:10:45+08:00"><meta property="article:modified_time" content="2023-07-05T11:10:45+08:00"><meta itemprop=name content="给 Hugo Blog 添加分类和标签"><meta itemprop=description content="0. 序 不久前把自己心心念念的 Blog 搭建起来了，但是不能给文章添加标签和分类，显得不够友好。
+搜了下资料，发现 Hugo 可以给文章添加标签和分类，那就把这个功能用起来吧，优化下我的 Blog。
+1. 开启分类功能 默认情况下，Hugo 就支持分类和标签，就算不填写下面的配置也会生效：
+# 在 hugo.toml 配置文件里面 [taxonomies] category = 'categories' tag = 'tags' 如果想要关闭分类和标签，需要添加下面的配置：
+# 在 hugo.toml 配置文件里面 disableKinds = ['taxonomy', 'term'] 当开启分类和标签功能之后，还需要在文章中添加对应的信息，像下面这样（在 new-hugo-blog.md 文件中）：
+--- title: &#34;使用 Hugo 建立自己的 Blog&#34; date: 2023-07-01T11:25:40+08:00 tags: [&#34;hugo&#34;, &#34;blog&#34;] categories: [&#34;博客改造&#34;] draft: false --- 如果运气好的话，启动 hugo 之后就能在文章内容底部看到设置的标签了。
+为啥说是运气好呢？
+是因为这个设置跟我们使用的主题有关系，我目前使用的 paper 主题，从上面的结果上看就只能看到 tags 生效了，但是 categories 并没有生效。
+当我们使用的主题不满足我们需求时，就需要考虑自己替换这部分主题的模板了。
+在 themes/paper/layouts/_default/single.html 文件里面（paper 换成你自己使用的主题名），我们可以找到配置分类和标签的地方，类似下面这样的代码：
+<!-- Post Tags --> {{ if ."><meta itemprop=datePublished content="2023-07-05T11:10:45+08:00"><meta itemprop=dateModified content="2023-07-05T11:10:45+08:00"><meta itemprop=wordCount content="711"><meta itemprop=keywords content="hugo,blog,"><meta name=twitter:card content="summary"><meta name=twitter:title content="给 Hugo Blog 添加分类和标签"><meta name=twitter:description content="0. 序 不久前把自己心心念念的 Blog 搭建起来了，但是不能给文章添加标签和分类，显得不够友好。
+搜了下资料，发现 Hugo 可以给文章添加标签和分类，那就把这个功能用起来吧，优化下我的 Blog。
+1. 开启分类功能 默认情况下，Hugo 就支持分类和标签，就算不填写下面的配置也会生效：
+# 在 hugo.toml 配置文件里面 [taxonomies] category = 'categories' tag = 'tags' 如果想要关闭分类和标签，需要添加下面的配置：
+# 在 hugo.toml 配置文件里面 disableKinds = ['taxonomy', 'term'] 当开启分类和标签功能之后，还需要在文章中添加对应的信息，像下面这样（在 new-hugo-blog.md 文件中）：
+--- title: &#34;使用 Hugo 建立自己的 Blog&#34; date: 2023-07-01T11:25:40+08:00 tags: [&#34;hugo&#34;, &#34;blog&#34;] categories: [&#34;博客改造&#34;] draft: false --- 如果运气好的话，启动 hugo 之后就能在文章内容底部看到设置的标签了。
+为啥说是运气好呢？
+是因为这个设置跟我们使用的主题有关系，我目前使用的 paper 主题，从上面的结果上看就只能看到 tags 生效了，但是 categories 并没有生效。
+当我们使用的主题不满足我们需求时，就需要考虑自己替换这部分主题的模板了。
+在 themes/paper/layouts/_default/single.html 文件里面（paper 换成你自己使用的主题名），我们可以找到配置分类和标签的地方，类似下面这样的代码：
+<!-- Post Tags --> {{ if ."></head><body class="text-black duration-200 ease-out dark:text-white"><header id=fixed-header class="fixed mx-auto w-screen header-bg border-bottom"><div class="mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center"><div class="relative z-50 mr-auto flex items-center"><a class="-translate-x-[1px] -translate-y-[1px] text-2xl font-semibold" href=https://idiot-alex.github.io/>Hotstrip Site</a><div class="btn-dark text-[0] ml-4 h-6 w-6 shrink-0 cursor-pointer [background:url(./theme.png)_left_center/_auto_theme('spacing.6')_no-repeat] [transition:_background-position_0.4s_steps(5)] dark:[background-position:right]" role=button aria-label=Dark></div></div><div class="btn-menu relative z-50 -mr-8 flex h-[5rem] w-[5rem] shrink-0 cursor-pointer flex-col items-center justify-center gap-2.5 lg:hidden" role=button aria-label=Menu></div><script>const htmlClass=document.documentElement.classList;setTimeout(()=>{htmlClass.remove("not-ready")},10);const btnMenu=document.querySelector(".btn-menu");btnMenu.addEventListener("click",()=>{htmlClass.toggle("open")});const metaTheme=document.querySelector('meta[name="theme-color"]'),lightBg="#faf8f1".replace(/"/g,""),setDark=e=>{metaTheme.setAttribute("content",e?"#000":lightBg),htmlClass[e?"add":"remove"]("dark"),localStorage.setItem("dark",e)},darkScheme=window.matchMedia("(prefers-color-scheme: dark)");if(htmlClass.contains("dark"))setDark(!0);else{const e=localStorage.getItem("dark");setDark(e?e==="true":darkScheme.matches)}darkScheme.addEventListener("change",e=>{setDark(e.matches)});const btnDark=document.querySelector(".btn-dark");btnDark.addEventListener("click",()=>{setDark(localStorage.getItem("dark")!=="true")})</script><div class="nav-wrapper fixed inset-x-0 top-full z-40 flex h-full select-none flex-col justify-center pb-16 duration-200 dark:bg-black lg:static lg:h-auto lg:flex-row lg:!bg-transparent lg:pb-0 lg:transition-none"><nav class="mt-12 flex justify-center space-x-10 dark:invert lg:ml-12 lg:mt-0 lg:items-center lg:space-x-6"><a class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style=--url:url(./github.svg) href=https://github.com/github.com/Idiot-Alex target=_blank rel=me>github</a>
+<a class="h-8 w-8 text-[0] [background:var(--url)_center_center/cover_no-repeat] lg:h-6 lg:w-6" style=--url:url(./rss.svg) href=https://idiot-alex.github.io/index.xml target=_blank rel=alternate>rss</a></nav></div></div></header><main class="prose prose-neutral relative mx-auto mt-[70px] min-h-[calc(100%-5rem)] max-w-3xl px-8 pb-16 pt-28 dark:prose-invert"><article><header class=mb-16><h1 id=# class="!my-0 pb-2.5">给 Hugo Blog 添加分类和标签</h1><div class="text-sm antialiased opacity-60"><time>Jul 5, 2023</time></div></header><section><h2 id=0-序>0. 序</h2><p>不久前把自己心心念念的 Blog 搭建起来了，但是不能给文章添加标签和分类，显得不够友好。</p><p>搜了下资料，发现 Hugo 可以给文章添加标签和分类，那就把这个功能用起来吧，优化下我的 Blog。</p><h2 id=1-开启分类功能>1. 开启分类功能</h2><p>默认情况下，Hugo 就支持分类和标签，就算不填写下面的配置也会生效：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span><span style=color:#75715e># 在 hugo.toml 配置文件里面</span>
+</span></span><span style=display:flex><span>[<span style=color:#a6e22e>taxonomies</span>]
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>category</span> = <span style=color:#e6db74>&#39;categories&#39;</span>
+</span></span><span style=display:flex><span>  <span style=color:#a6e22e>tag</span> = <span style=color:#e6db74>&#39;tags&#39;</span>
+</span></span></code></pre></div><p>如果想要关闭分类和标签，需要添加下面的配置：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-toml data-lang=toml><span style=display:flex><span><span style=color:#75715e># 在 hugo.toml 配置文件里面</span>
+</span></span><span style=display:flex><span><span style=color:#a6e22e>disableKinds</span> = [<span style=color:#e6db74>&#39;taxonomy&#39;</span>, <span style=color:#e6db74>&#39;term&#39;</span>]
+</span></span></code></pre></div><p>当开启分类和标签功能之后，还需要在文章中添加对应的信息，像下面这样（在 new-hugo-blog.md 文件中）：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-markdown data-lang=markdown><span style=display:flex><span>---
+</span></span><span style=display:flex><span>title: &#34;使用 Hugo 建立自己的 Blog&#34;
+</span></span><span style=display:flex><span>date: 2023-07-01T11:25:40+08:00
+</span></span><span style=display:flex><span>tags: [&#34;hugo&#34;, &#34;blog&#34;]
+</span></span><span style=display:flex><span>categories: [&#34;博客改造&#34;]
+</span></span><span style=display:flex><span>draft: false
+</span></span><span style=display:flex><span>---
+</span></span></code></pre></div><p>如果运气好的话，启动 hugo 之后就能在文章内容底部看到设置的标签了。</p><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307051519864.png alt=image-20230705151914464></p><p>为啥说是运气好呢？</p><p>是因为这个设置跟我们使用的主题有关系，我目前使用的 paper 主题，从上面的结果上看就只能看到 tags 生效了，但是 categories 并没有生效。</p><p>当我们使用的主题不满足我们需求时，就需要考虑自己替换这部分主题的模板了。</p><p>在 themes/paper/layouts/_default/single.html 文件里面（paper 换成你自己使用的主题名），我们可以找到配置分类和标签的地方，类似下面这样的代码：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!-- Post Tags --&gt;</span>
+</span></span><span style=display:flex><span>{{ if .Params.tags }}
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>footer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mt-12 flex flex-wrap&#34;</span>&gt;
+</span></span><span style=display:flex><span>  {{ range .Params.tags }} {{ $href := print (absURL &#34;tags/&#34;) (urlize .) }}
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]&#34;</span>
+</span></span><span style=display:flex><span>    <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ $href }}&#34;</span>
+</span></span><span style=display:flex><span>    &gt;{{ . }}&lt;/<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>  &gt;
+</span></span><span style=display:flex><span>  {{ end }}
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>footer</span>&gt;
+</span></span><span style=display:flex><span>{{ end }}
+</span></span></code></pre></div><p>简单的描述下就是把文章中的 tags 属性值遍历输出来展示在页面上，而不显示 categories 的原因也是因为没有类似的代码。</p><p>为解决这个问题，我们直接把主题下面的 single.html 文件复制到 layouts/_default/single.html，并且添加一段新代码来展示 categories 属性：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!-- Post Categories --&gt;</span>
+</span></span><span style=display:flex><span>{{ with .Params.categories }}
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>id</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;categories&#34;</span>&gt;
+</span></span><span style=display:flex><span>  {{ range . }}
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ &#34;</span><span style=color:#a6e22e>categories</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>absURL</span><span style=color:#960050;background-color:#1e0010>}}/{{</span> <span style=color:#960050;background-color:#1e0010>.</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>urlize</span> <span style=color:#960050;background-color:#1e0010>}}&#34;</span>&gt;{{ . }}&lt;/<span style=color:#f92672>a</span>&gt; &lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>  {{ end }}
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>{{ end }}
+</span></span></code></pre></div><p>重新访问页面，效果如下：</p><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307051531290.png alt=image-20230705153131536></p><h2 id=2-调整分类标签的位置>2. 调整分类标签的位置</h2><p>从效果图上看，分类和标签展示在了文章内容底部，不大符合我的预期。</p><p>我更希望分类和标签能够显示在侧边，并且不会随着内容的滚动而消失。</p><p>有了前面的基础，我们这次直接修改 layouts/_default/baseof.html 页面，引入一个新的页面，就叫做 right-panel.html 吧，这个文件放到 layouts/partials 目录，这个文件内容如下：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span>&lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;right-panel mt-3 mr-4 p-3&#34;</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- 当前页面是文章内容页面 --&gt;</span>
+</span></span><span style=display:flex><span>  {{ if in .File.Dir &#34;posts&#34; }}
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- Post Categories --&gt;</span>
+</span></span><span style=display:flex><span>    {{ with .Params.categories }}
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;categories-title&#34;</span>&gt;文章分类&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;categories&#34;</span>&gt;
+</span></span><span style=display:flex><span>      {{ range . }}
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ &#34;</span><span style=color:#a6e22e>categories</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>absURL</span><span style=color:#960050;background-color:#1e0010>}}/{{</span> <span style=color:#960050;background-color:#1e0010>.</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>urlize</span> <span style=color:#960050;background-color:#1e0010>}}&#34;</span>&gt;{{ . }}&lt;/<span style=color:#f92672>a</span>&gt; &lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>      {{ end }}
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>    {{ end }}
+</span></span><span style=display:flex><span>    
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- Post Tags --&gt;</span>
+</span></span><span style=display:flex><span>    {{ if .Params.tags }}
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mt-12 flex flex-col&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tags-title&#34;</span>&gt;文章标签&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>footer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;flex flex-wrap&#34;</span>&gt;
+</span></span><span style=display:flex><span>        {{ range .Params.tags }} {{ $href := print (absURL &#34;tags/&#34;) (urlize .) }}
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ $href }}&#34;</span>
+</span></span><span style=display:flex><span>          &gt;{{ . }}&lt;/<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>        &gt;
+</span></span><span style=display:flex><span>        {{ end }}
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>footer</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    {{ end }}
+</span></span><span style=display:flex><span>  {{ else }}
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- 当前页面不是文章内容 --&gt;</span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- All Categories --&gt;</span>
+</span></span><span style=display:flex><span>    {{ with .Site.Taxonomies.categories }}
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;categories-title&#34;</span>&gt;所有文章分类&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>ul</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;categories&#34;</span>&gt;
+</span></span><span style=display:flex><span>      {{ range $name, $taxonomy := . }}
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>li</span>&gt;&lt;<span style=color:#f92672>a</span> <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ &#34;</span><span style=color:#a6e22e>categories</span><span style=color:#960050;background-color:#1e0010>&#34;</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>absURL</span><span style=color:#960050;background-color:#1e0010>}}/{{</span> <span style=color:#960050;background-color:#1e0010>$</span><span style=color:#a6e22e>name</span> <span style=color:#960050;background-color:#1e0010>|</span> <span style=color:#a6e22e>urlize</span> <span style=color:#960050;background-color:#1e0010>}}&#34;</span>&gt;{{ $name }}&lt;/<span style=color:#f92672>a</span>&gt; &lt;/<span style=color:#f92672>li</span>&gt;
+</span></span><span style=display:flex><span>      {{ end }}
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>ul</span>&gt;
+</span></span><span style=display:flex><span>    {{ end }}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>    <span style=color:#75715e>&lt;!-- All Tags --&gt;</span>
+</span></span><span style=display:flex><span>    {{ if .Site.Taxonomies.tags }}
+</span></span><span style=display:flex><span>    &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mt-12 flex flex-col&#34;</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>h2</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;tags-title&#34;</span>&gt;所有文章标签&lt;/<span style=color:#f92672>h2</span>&gt;
+</span></span><span style=display:flex><span>      &lt;<span style=color:#f92672>footer</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;flex flex-wrap&#34;</span>&gt;
+</span></span><span style=display:flex><span>        {{ range $name, $taxonomy := .Site.Taxonomies.tags }} {{ $href := print (absURL &#34;tags/&#34;) (urlize $name) }}
+</span></span><span style=display:flex><span>        &lt;<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]&#34;</span>
+</span></span><span style=display:flex><span>          <span style=color:#a6e22e>href</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;{{ $href }}&#34;</span>
+</span></span><span style=display:flex><span>          &gt;{{ $name }}&lt;/<span style=color:#f92672>a</span>
+</span></span><span style=display:flex><span>        &gt;
+</span></span><span style=display:flex><span>        {{ end }}
+</span></span><span style=display:flex><span>      &lt;/<span style=color:#f92672>footer</span>&gt;
+</span></span><span style=display:flex><span>    &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>    {{ end }}
+</span></span><span style=display:flex><span>  {{ end }}
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>div</span>&gt;
+</span></span></code></pre></div><p>从代码上可以看到，整体内容分为两部分：</p><ol><li>如果是文章页面，就显示该文章定义的分类和标签</li><li>如果不是文章页面，就显示本博客网站所有文章的分类和所有文章的标签</li></ol><blockquote><p>可以通过当前文件的目录来判断是否是文章页面：如果是文章页面，它的目录肯定是在 content/posts 里面，我们通过 <strong>.File.Dir</strong> 变量获取到文件的目录</p></blockquote><p>然后在 layouts/_default/baseof.html 页面引入进来：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!-- ..... --&gt;</span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- right panel for categories and tags--&gt;</span>
+</span></span><span style=display:flex><span>{{ partial &#34;right-panel.html&#34; . }}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>{{ partial &#34;footer.html&#34; . }}
+</span></span></code></pre></div><p>最后调整下 custom.css 文件的样式内容：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span>.<span style=color:#a6e22e>right-panel</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>position</span>: <span style=color:#66d9ef>fixed</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>top</span>: <span style=color:#ae81ff>5</span><span style=color:#66d9ef>rem</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>right</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>width</span>: calc((calc(<span style=color:#ae81ff>100</span><span style=color:#66d9ef>vw</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>48</span><span style=color:#66d9ef>rem</span>)) <span style=color:#f92672>/</span><span style=color:#ae81ff>2</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#ebebe5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>box-shadow</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>#eceaea</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background-color</span>: rgb(<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span><span style=color:#f92672>/</span><span style=color:#ae81ff>3</span><span style=color:#66d9ef>%</span>)
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>mr-4</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-right</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>rem</span><span style=color:#75715e>/* 16px */</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>categories</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>list-style</span>: <span style=color:#66d9ef>none</span>; <span style=color:#75715e>/* 去掉默认的列表样式 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>0</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>categories</span> <span style=color:#f92672>li</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>inline-block</span>; <span style=color:#75715e>/* 将列表项变成行内块元素 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-right</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>; <span style=color:#75715e>/* 制造列表项之间的间隔 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>categories</span> <span style=color:#f92672>li</span> <span style=color:#f92672>a</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>display</span>: <span style=color:#66d9ef>block</span>; <span style=color:#75715e>/* 将链接变成块级元素，使其可以占据整个列表项 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding</span>: <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>; <span style=color:#75715e>/* 为链接添加内边距，让其区域更大，更容易点击 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#e2e2de</span>; <span style=color:#75715e>/* 添加背景色 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#333</span>; <span style=color:#75715e>/* 添加文字颜色 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>text-decoration</span>: <span style=color:#66d9ef>none</span>; <span style=color:#75715e>/* 去掉下划线 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>5</span><span style=color:#66d9ef>px</span>; <span style=color:#75715e>/* 添加圆角 */</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>categories</span> <span style=color:#f92672>li</span> <span style=color:#f92672>a</span>:<span style=color:#a6e22e>hover</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background-color</span>: <span style=color:#ae81ff>#333</span>; <span style=color:#75715e>/* 鼠标悬停时改变背景色 */</span>
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>color</span>: <span style=color:#ae81ff>#fff</span>; <span style=color:#75715e>/* 鼠标悬停时改变文字颜色 */</span>
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>categories-title</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>600</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>tags-title</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-bottom</span>: <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-size</span>: <span style=color:#ae81ff>20</span><span style=color:#66d9ef>px</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>font-weight</span>: <span style=color:#ae81ff>600</span>;
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><p>最后看看效果（非文章页面和文章页面都会显示分类和标签）：</p><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307091033611.png alt=image-20230709103259338></p><p><img src=https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307091033116.png alt=image-20230709103340269></p><h2 id=3-固定头部>3. 固定头部</h2><p>搞定了分类和标签，但是每篇文章的内容在滚动时会把头部顶上去，我想把头部固定不随着页面滚动而消失。</p><p>跟调整分类和标签部分的方法一样，首先找到主题下对应的页面，然后把页面复制到 layouts 目录里面去。</p><p>比如我使用的是 paper 主题，就把 themes/paper/layouts/partials/header.html 文件复制到 layouts/partials/header.html，然后在这里面去修改样式就行。</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-html data-lang=html><span style=display:flex><span><span style=color:#75715e>&lt;!-- 修改之前的代码 --&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center&#34;</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- 省略其他内容 --&gt;</span>
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>header</span>&gt;
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>&lt;!-- 修改之后的代码 --&gt;</span>
+</span></span><span style=display:flex><span>&lt;<span style=color:#f92672>header</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;fixed mx-auto w-screen header-bg border-bottom&#34;</span>&gt;
+</span></span><span style=display:flex><span>  &lt;<span style=color:#f92672>div</span> <span style=color:#a6e22e>class</span><span style=color:#f92672>=</span><span style=color:#e6db74>&#34;mx-auto flex h-[5rem] max-w-3xl px-8 lg:justify-center&#34;</span>&gt;
+</span></span><span style=display:flex><span>  <span style=color:#75715e>&lt;!-- 省略其他内容 --&gt;</span>
+</span></span><span style=display:flex><span>  &lt;/<span style=color:#f92672>div</span>&gt;
+</span></span><span style=display:flex><span>&lt;/<span style=color:#f92672>header</span>&gt;
+</span></span></code></pre></div><p>可以看到，我就只是把原来的 header 标签换成了 div 标签，然后外面套了一层 header 标签，给它添加上我需要的样式，比如固定定位、设置宽度、加点边框等。</p><p>新增的样式可能不生效，就在 assets 目录下面新增一个 custom.css 文件，然后在这个文件里面写样式内容。下面是一些参考的样式：</p><div class=highlight><pre tabindex=0 style=color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4><code class=language-css data-lang=css><span style=display:flex><span><span style=color:#75715e>/* Place custom css here. */</span>
+</span></span><span style=display:flex><span><span style=color:#f92672>img</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border</span>: <span style=color:#ae81ff>0.5</span><span style=color:#66d9ef>rem</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#ebebe5</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-radius</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>rem</span>;
+</span></span><span style=display:flex><span>  --tw-shadow: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>15</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>-3</span><span style=color:#66d9ef>px</span> rgb(<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>/</span> <span style=color:#ae81ff>0.1</span>), <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>-4</span><span style=color:#66d9ef>px</span> rgb(<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#f92672>/</span> <span style=color:#ae81ff>0.1</span>);
+</span></span><span style=display:flex><span>  --tw-shadow-colored: <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>10</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>15</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>-3</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>tw<span style=color:#f92672>-</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>), <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>4</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>6</span><span style=color:#66d9ef>px</span> <span style=color:#ae81ff>-4</span><span style=color:#66d9ef>px</span> <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>tw<span style=color:#f92672>-</span>shadow<span style=color:#f92672>-</span><span style=color:#66d9ef>color</span>);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>box-shadow</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>tw<span style=color:#f92672>-</span>ring<span style=color:#f92672>-</span>offset<span style=color:#f92672>-</span>shadow,<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>#0000</span>),<span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>tw<span style=color:#f92672>-</span>ring<span style=color:#f92672>-</span>shadow,<span style=color:#ae81ff>0</span> <span style=color:#ae81ff>0</span> <span style=color:#ae81ff>#0000</span>),<span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>tw<span style=color:#f92672>-</span>shadow);
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>article</span> <span style=color:#f92672>pre</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-left</span>: <span style=color:#ae81ff>0</span><span style=color:#66d9ef>rem</span>;
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-right</span>: <span style=color:#ae81ff>0</span><span style=color:#66d9ef>rem</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#f92672>article</span> <span style=color:#f92672>blockquote</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>margin-left</span>: <span style=color:#ae81ff>0</span><span style=color:#66d9ef>rem</span> <span style=color:#75715e>!important</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>w-screen</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>width</span>: <span style=color:#ae81ff>100</span><span style=color:#66d9ef>vw</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>header-bg</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>background</span>: <span style=color:#a6e22e>var</span>(<span style=color:#f92672>--</span>bg);
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>z-index</span>: <span style=color:#ae81ff>10</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>border-bottom</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>border-bottom</span>: <span style=color:#ae81ff>1</span><span style=color:#66d9ef>px</span> <span style=color:#66d9ef>solid</span> <span style=color:#ae81ff>#ebebe5</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span><span style=color:#75715e>/* main 部分文章内容往下移一点 */</span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>pt-28</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>padding-top</span>: <span style=color:#ae81ff>7</span><span style=color:#66d9ef>rem</span>;
+</span></span><span style=display:flex><span>}
+</span></span><span style=display:flex><span>
+</span></span><span style=display:flex><span>.<span style=color:#a6e22e>min-h-</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>[</span><span style=color:#f92672>calc</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>(</span><span style=color:#f92672>100</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>%</span><span style=color:#f92672>-5rem</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>)</span><span style=color:#960050;background-color:#1e0010>\</span><span style=color:#f92672>]</span> {
+</span></span><span style=display:flex><span>  <span style=color:#66d9ef>min-height</span>: calc(<span style=color:#ae81ff>100</span><span style=color:#66d9ef>%</span> <span style=color:#f92672>-</span> <span style=color:#ae81ff>5</span><span style=color:#66d9ef>rem</span>);
+</span></span><span style=display:flex><span>}
+</span></span></code></pre></div><blockquote><p>我这里目前调整了头部的定位、背景；给图片添加上了圆角和阴影；给代码块调整了占位宽度（原本的样式会导致代码块不会和段落对齐，感觉很难看）；引用块也是一样。</p></blockquote><p>完成之后的效果如下：</p><p>![image-20230708104335852](/Users/zhangxin/Library/Application Support/typora-user-images/image-20230708104335852.png)</p></section><nav class="mt-3 flex rounded-lg bg-black/[3%] text-lg dark:bg-white/[8%]"><a class="flex w-1/2 items-center rounded-l-md p-6 pr-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://idiot-alex.github.io/posts/add-post-nav/><span class=mr-1.5>←</span><span>给 Hugo Blog 添加文章导航</span></a>
+<a class="ml-auto flex w-1/2 items-center justify-end rounded-r-md p-6 pl-3 font-semibold no-underline hover:bg-black/[2%] dark:hover:bg-white/[3%]" href=https://idiot-alex.github.io/posts/new-hugo-blog/><span>使用 Hugo 建立自己的 Blog</span><span class=ml-1.5>→</span></a></nav></article></main><div class="left-panel mt-3 ml-4 p-3"><div id=nav></div><script type=text/javascript>let fixedHeaderHeight=document.getElementById("fixed-header").getBoundingClientRect().height,content=document.getElementsByTagName("article")[0],nav=document.getElementById("nav");for(let e=1;e<=6;e++){let t=content.getElementsByTagName("h"+e);for(let n=0;n<t.length;n++){let s=document.createElement("a");s.className="anchor text-black dark:text-white",s.innerHTML=t[n].innerHTML,s.href="#"+t[n].id;let o=document.createElement("div");o.className="nav-item mt-2",o.style.paddingLeft=(e-1)*20+"px",o.appendChild(s),nav.appendChild(o)}}let links=nav.getElementsByTagName("a");for(let e=0;e<links.length;e++)if(links[e].hash){let n=decodeURIComponent(links[e].hash.slice(1)),t=document.getElementById(n);t&&links[e].addEventListener("click",function(e){e.preventDefault(),location.hash=this.hash;let n=t.getBoundingClientRect().top+window.scrollY,s=n-fixedHeaderHeight+1;window.scrollTo({top:s,behavior:"smooth"})})}const navLinks=document.querySelectorAll("#nav a"),anchors=document.querySelectorAll("article h1, article h2, article h3, article h4, article h5, article h6");window.addEventListener("scroll",()=>{const e=window.pageYOffset;anchors.forEach(t=>{const n=t.offsetTop;e+fixedHeaderHeight>=n&&navLinks.forEach(e=>{t.getAttribute("id")||document.querySelectorAll("#nav a[href='#']")[0].classList.add("active"),e.getAttribute("href")=="#"+t.getAttribute("id")?e.classList.add("active"):e.classList.remove("active")})})})</script></div><div class="right-panel mt-3 mr-4 p-3"><h2 class=categories-title>文章分类</h2><ul class=categories><li><a href=https://idiot-alex.github.io/categories/%E5%8D%9A%E5%AE%A2%E6%94%B9%E9%80%A0>博客改造</a></li></ul><div class="mt-12 flex flex-col"><h2 class=tags-title>文章标签</h2><footer class="flex flex-wrap"><a class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]" href=https://idiot-alex.github.io/tags/hugo>hugo</a>
+<a class="mb-1.5 mr-1.5 rounded-lg bg-black/[3%] px-5 py-1.5 no-underline dark:bg-white/[8%]" href=https://idiot-alex.github.io/tags/blog>blog</a></footer></div></div><footer class="opaco mx-auto flex h-[4.5rem] max-w-3xl items-center px-8 text-[0.9em] opacity-60"><div class=mr-auto>&copy; 2023
+<a class=link href=https://idiot-alex.github.io/>Hotstrip Site</a></div><a class="link mx-6" href=https://gohugo.io/ rel=noopener target=_blank>Powered by Hugo️️</a>️
+<a class=link href=https://github.com/nanxiaobei/hugo-paper rel=noopener target=_blank>✎ Paper</a></footer></body></html>
