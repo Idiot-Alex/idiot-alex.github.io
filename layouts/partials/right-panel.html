@@ -3,7 +3,7 @@
   {{ if in .File.Dir "posts" }}
     <!-- Post Categories -->
     {{ with .Params.categories }}
-    <h2 class="categories-title">文章分类</h2>
+    <span class="categories-title">文章分类</span>
     <ul class="categories">
       {{ range . }}
         <li><a href="{{ "categories" | absURL}}/{{ . | urlize }}">{{ . }}</a> </li>
@@ -14,7 +14,7 @@
     <!-- Post Tags -->
     {{ if .Params.tags }}
     <div class="mt-12 flex flex-col">
-      <h2 class="tags-title">文章标签</h2>
+      <span class="tags-title">文章标签</span>
       <footer class="flex flex-wrap">
         {{ range .Params.tags }} {{ $href := print (absURL "tags/") (urlize .) }}
         <a
@@ -30,7 +30,7 @@
     <!-- 当前页面不是文章内容 -->
     <!-- All Categories -->
     {{ with .Site.Taxonomies.categories }}
-    <h2 class="categories-title">所有文章分类</h2>
+    <span class="categories-title">所有文章分类</span>
     <ul class="categories">
       {{ range $name, $taxonomy := . }}
         <li><a href="{{ "categories" | absURL}}/{{ $name | urlize }}">{{ $name }}</a> </li>
@@ -41,7 +41,7 @@
     <!-- All Tags -->
     {{ if .Site.Taxonomies.tags }}
     <div class="mt-12 flex flex-col">
-      <h2 class="tags-title">所有文章标签</h2>
+      <span class="tags-title">所有文章标签</span>
       <footer class="flex flex-wrap">
         {{ range $name, $taxonomy := .Site.Taxonomies.tags }} {{ $href := print (absURL "tags/") (urlize $name) }}
         <a

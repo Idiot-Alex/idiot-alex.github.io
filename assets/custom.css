@@ -134,13 +134,15 @@ a.active {
 }
 
 .categories-title {
+  display: block;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
 }
 
 .tags-title {
+  display: block;
   margin-bottom: 10px;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: 600;
 }
