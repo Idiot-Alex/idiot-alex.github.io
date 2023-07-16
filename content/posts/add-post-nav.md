@@ -172,3 +172,26 @@ a.active {
 最终的效果如下：
 
 ![image-20230709144452570](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307091444427.png)
+
+## 2. 响应式处理
+
+虽然上面完成了在页面上显示导航的功能，但是一旦我们在移动端访问时，左右两边的内容就很丑，无法完整的显示。
+
+考虑到移动端本身内容可见区就不大，展示额外的信息反而会污染整个文章内容，所以一旦内容宽度小于某个值（比如 1024px）之后就不再显示左右两边的导航和标签内容了。
+
+我们在 custom.css 里面添加下媒体查询的样式代码：
+
+```css
+@media screen and (max-width: 1023px) {
+  .left-panel {
+    display: none;
+  }
+  .right-panel {
+    display: none;
+  }
+}
+```
+
+最终效果如下：
+
+![image-20230716154339322](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307161543656.png)
