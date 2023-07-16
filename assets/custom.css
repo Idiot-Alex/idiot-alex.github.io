@@ -59,6 +59,10 @@ article blockquote {
   background-color: rgb(0 0 0/3%)
 }
 
+.left-panel .nav-item a {
+  display: block;
+}
+
  /* 给锚点添加下划线 */
 a.anchor {
   position: relative;
