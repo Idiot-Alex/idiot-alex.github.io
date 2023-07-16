@@ -308,4 +308,4 @@ article blockquote {
 
 完成之后的效果如下：
 
-![image-20230708104335852](/Users/zhangxin/Library/Application Support/typora-user-images/image-20230708104335852.png)
+![image-20230708104335852](https://raw.githubusercontent.com/Idiot-Alex/picgo-repo/main/storage/add-post-tag/202307161551676.png)
