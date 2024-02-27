@@ -26,7 +26,7 @@ jobs:
           extended: true
 
       - name: Build Hugo
-        run: hugo --gc --minify  --cleanDestinationDir --baseURL "https://idiot-alex.github.io/" -e "production"
+        run: hugo --gc --minify  --cleanDestinationDir -e "production"
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
